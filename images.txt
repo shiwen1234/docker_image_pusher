@@ -1,2 +1,1 @@
-dpage/pgadmin4:6.16
-dpage/pgadmin4:latest
+registry.openanolis.cn/openanolis/mysql:8.0.30-8.6
