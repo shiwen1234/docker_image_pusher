@@ -17,8 +17,6 @@ postgres:14.12
 postgres:15.7
 postgres:16.3
 
-pgadmin4:latest
-
 ubuntu:24.04
 ubuntu:22.04.4
 ubuntu:20.04.6
@@ -26,3 +24,4 @@ ubuntu:18.04.6
 ubuntu:16.04.7
 ubuntu:14.04.6
 
+pgadmin4:latest
