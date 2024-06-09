@@ -22,3 +22,6 @@ ubuntu:20.04
 ubuntu:18.04
 ubuntu:16.04
 ubuntu:14.04
+
+dpage/pgadmin4:6.16
+dpage/pgadmin4:latest
