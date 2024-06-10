@@ -27,6 +27,9 @@ jobs:
     - name: Build and push image Aliyun (multi-platform)
       run: |
         docker login -u $ALIYUN_REGISTRY_USER -p $ALIYUN_REGISTRY_PASSWORD $ALIYUN_REGISTRY
+        docker buildx version
+        docker pull tonistiigi/binfmt
+        docker run --privileged --rm tonistiigi/binfmt --install all
         for line in $(cat images.txt); do
           echo "Pulling $line..."
           docker pull $line
@@ -37,10 +40,8 @@ jobs:
           if docker manifest inspect $new_image > /dev/null 2>&1; then
             echo "镜像 $new_image 已存在，跳过..."
           else
-            echo "构建并推送 $new_image..."
-            docker buildx create --use
-
-            # 如果Dockerfile不在根目录，请指定路径
-            docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $new_image -f path/to/Dockerfile --push .
+            mkdir .docker/Dockerfile
+            echo "如果Dockerfile不在根目录,请指定路径"
+            docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $new_image  --push .
           fi
         done
