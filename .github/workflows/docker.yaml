@@ -33,13 +33,14 @@ jobs:
           image_name_tag=$(echo $line | awk -F'/' '{print $NF}')
           new_image="$ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/$image_name_tag"
 
-          # Check if the image already exists in Aliyun registry
+          # 检查镜像是否已存在于阿里云注册表
           if docker manifest inspect $new_image > /dev/null 2>&1; then
-            echo "Image $new_image already exists. Skipping..."
+            echo "镜像 $new_image 已存在，跳过..."
           else
-            echo "Building and pushing $new_image..."
+            echo "构建并推送 $new_image..."
             docker buildx create --use
-            echo "docker push $new_image"
-            docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $new_image --push .
+
+            # 如果Dockerfile不在根目录，请指定路径
+            docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $new_image -f path/to/Dockerfile --push .
           fi
         done
