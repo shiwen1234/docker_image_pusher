@@ -40,7 +40,6 @@ jobs:
           if docker manifest inspect $new_image > /dev/null 2>&1; then
             echo "镜像 $new_image 已存在，跳过..."
           else
-            mkdir .docker/Dockerfile
             echo "如果Dockerfile不在根目录,请指定路径"
             docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t $new_image  --push .
           fi
